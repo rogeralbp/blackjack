@@ -1,0 +1,13 @@
+html, body{
+    margin: 0px;
+    background-color: green;
+    color: white;
+}
+
+.titleHeader{
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding: 25px;
+    font-size: 25px;
+}
