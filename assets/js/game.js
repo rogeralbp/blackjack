@@ -26,14 +26,14 @@ const htmlPoints = document.querySelectorAll('small');
 const createDeck = () => {
 
     for( let i = 2; i <= 10; i++ ) {
-        for( let tipo of typeCards ) {
-            deck.push( i + tipo);
+        for( let type of typeCards ) {
+            deck.push( i + type);
         }
     }
 
-    for( let tipo of typeCards ) {
+    for( let type of typeCards ) {
         for( let esp of specialsTypeCards ) {
-            deck.push( esp + tipo);
+            deck.push( esp + type);
         }
     }
     deck = _.shuffle( deck );
@@ -48,35 +48,35 @@ createDeck();
 const askCard = () => {
 
     if ( deck.length === 0 ) {
-        throw 'No hay cartas en el deck';
+        throw 'There is not cards on the deck';
     }
-    const carta = deck.pop();
-    return carta;
+    const card = deck.pop();
+    return card;
 }
 
 // This function determine the value of the cards for the game and the respective current rules
-const cardValue = ( carta ) => {
+const cardValue = ( card ) => {
 
-    const valor = carta.substring(0, carta.length - 1);
-    return ( isNaN( valor ) ) ? 
-            ( valor === 'A' ) ? 11 : 10
-            : valor * 1;
+    const value = card.substring(0, card.length - 1);
+    return ( isNaN( value ) ) ? 
+            ( value === 'A' ) ? 11 : 10
+            : value * 1;
 }
 
 // Computer turn
 const computerTurn = ( minimumPoints ) => {
 
     do {
-        const carta = askCard();
+        const card = askCard();
 
-        computerPoints = computerPoints + cardValue( carta );
+        computerPoints = computerPoints + cardValue( card );
         htmlPoints[1].innerText = computerPoints;
         
-        // <img class="carta" src="assets/cards/2C.png">
-        const imgCarta = document.createElement('img');
-        imgCarta.src = `assets/cards/${ carta }.png`; //3H, JD
-        imgCarta.classList.add('carta');
-        divComputerCards.append( imgCarta );
+        // <img class="Card" src="assets/cards/2C.png">
+        const imgCard = document.createElement('img');
+        imgCard.src = `assets/cards/${ card }.png`; //3H, JD
+        imgCard.classList.add('carta');
+        divComputerCards.append( imgCard );
 
         if( minimumPoints > 21 ) {
             break;
@@ -102,16 +102,16 @@ const computerTurn = ( minimumPoints ) => {
 // Events
 btnGetCard.addEventListener('click', () => {
 
-    const carta = askCard();
+    const card = askCard();
     
-    playerPoints = playerPoints + cardValue( carta );
+    playerPoints = playerPoints + cardValue( card );
     htmlPoints[0].innerText = playerPoints;
     
-    // <img class="carta" src="assets/cards/2C.png">
-    const imgCarta = document.createElement('img');
-    imgCarta.src = `assets/cards/${ carta }.png`; //3H, JD
-    imgCarta.classList.add('carta');
-    divPlayerCards.append( imgCarta );
+    // <img class="Card" src="assets/cards/2C.png">
+    const imgCard = document.createElement('img');
+    imgCard.src = `assets/cards/${ card }.png`; //3H, JD
+    imgCard.classList.add('carta');
+    divPlayerCards.append( imgCard );
 
     if ( playerPoints > 21 ) {
         console.warn('Im sorry, you Lost! :(');
