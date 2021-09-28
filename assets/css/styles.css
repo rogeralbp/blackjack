@@ -2,8 +2,9 @@ html, body {
     margin: 0px;
     background-color: #2F4F30;
     color: white;
+    max-width: 100%;
+    overflow-x: hidden;
 }
-
 
 .title {
     text-align: center;
