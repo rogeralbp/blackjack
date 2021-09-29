@@ -6,153 +6,152 @@
  */
 
 let deck         = [];
-const tipos      = ['C','D','H','S'];
-const especiales = ['A','J','Q','K'];
+const typeCards      = ['C','D','H','S'];
+const specialsTypeCards = ['A','J','Q','K'];
 
-let puntosJugador = 0,
-    puntosComputadora = 0;
+let playerPoints = 0,
+    computerPoints = 0;
 
 //  HTML references
-const btnPedir   = document.querySelector('#btnGetCard');
-const btnDetener = document.querySelector('#btnStop');
-const btnNuevo   = document.querySelector('#btnNewGame');
+const btnGetCard   = document.querySelector('#btnGetCard');
+const btnStop = document.querySelector('#btnStop');
+const btnNewGame   = document.querySelector('#btnNewGame');
 
-const divCartasJugador     = document.querySelector('#player-cards');
-const divCartasComputadora = document.querySelector('#computer-cards');
+const divPlayerCards     = document.querySelector('#player-cards');
+const divComputerCards = document.querySelector('#computer-cards');
 
-const puntosHTML = document.querySelectorAll('small');
+const htmlPoints = document.querySelectorAll('small');
 
-// Esta función crea un nuevo deck
-const crearDeck = () => {
+// This function create a new deck
+const createDeck = () => {
 
     for( let i = 2; i <= 10; i++ ) {
-        for( let tipo of tipos ) {
-            deck.push( i + tipo);
+        for( let type of typeCards ) {
+            deck.push( i + type);
         }
     }
 
-    for( let tipo of tipos ) {
-        for( let esp of especiales ) {
-            deck.push( esp + tipo);
+    for( let type of typeCards ) {
+        for( let esp of specialsTypeCards ) {
+            deck.push( esp + type);
         }
     }
-    // console.log( deck );
     deck = _.shuffle( deck );
     console.log( deck );
     return deck;
 }
 
-crearDeck();
+createDeck();
 
 
-// Esta función me permite tomar una carta
-const pedirCarta = () => {
+// This function give a card to the players
+const askCard = () => {
 
     if ( deck.length === 0 ) {
-        throw 'No hay cartas en el deck';
+        throw 'There is not cards on the deck';
     }
-    const carta = deck.pop();
-    return carta;
+    const card = deck.pop();
+    return card;
 }
 
-// pedirCarta();
-const valorCarta = ( carta ) => {
+// This function determine the value of the cards for the game and the respective current rules
+const cardValue = ( card ) => {
 
-    const valor = carta.substring(0, carta.length - 1);
-    return ( isNaN( valor ) ) ? 
-            ( valor === 'A' ) ? 11 : 10
-            : valor * 1;
+    const value = card.substring(0, card.length - 1);
+    return ( isNaN( value ) ) ? 
+            ( value === 'A' ) ? 11 : 10
+            : value * 1;
 }
 
-// turno de la computadora
-const turnoComputadora = ( puntosMinimos ) => {
+// Computer turn
+const computerTurn = ( minimumPoints ) => {
 
     do {
-        const carta = pedirCarta();
+        const card = askCard();
 
-        puntosComputadora = puntosComputadora + valorCarta( carta );
-        puntosHTML[1].innerText = puntosComputadora;
+        computerPoints = computerPoints + cardValue( card );
+        htmlPoints[1].innerText = computerPoints;
         
-        // <img class="carta" src="assets/cards/2C.png">
-        const imgCarta = document.createElement('img');
-        imgCarta.src = `assets/cards/${ carta }.png`; //3H, JD
-        imgCarta.classList.add('carta');
-        divCartasComputadora.append( imgCarta );
+        // <img class="Card" src="assets/cards/2C.png">
+        const imgCard = document.createElement('img');
+        imgCard.src = `assets/cards/${ card }.png`; //3H, JD
+        imgCard.classList.add('carta');
+        divComputerCards.append( imgCard );
 
-        if( puntosMinimos > 21 ) {
+        if( minimumPoints > 21 ) {
             break;
         }
 
-    } while(  (puntosComputadora < puntosMinimos)  && (puntosMinimos <= 21 ) );
+    } while(  (computerPoints < minimumPoints)  && (minimumPoints <= 21 ) );
 
     setTimeout(() => {
-        if( puntosComputadora === puntosMinimos ) {
-            alert('Nadie gana :(');
-        } else if ( puntosMinimos > 21 ) {
-            alert('Computadora gana')
-        } else if( puntosComputadora > 21 ) {
-            alert('Jugador Gana');
+        if( computerPoints === minimumPoints ) {
+            alert('No one wins, its draw :D');
+        } else if ( minimumPoints > 21 ) {
+            alert('Computer wins!')
+        } else if( computerPoints > 21 ) {
+            alert('Player wins!');
         } else {
-            alert('Computadora Gana')
+            alert('Computer wins!')
         }
     }, 100 );
 }
 
 
 
-// Eventos
-btnPedir.addEventListener('click', () => {
+// Events
+btnGetCard.addEventListener('click', () => {
 
-    const carta = pedirCarta();
+    const card = askCard();
     
-    puntosJugador = puntosJugador + valorCarta( carta );
-    puntosHTML[0].innerText = puntosJugador;
+    playerPoints = playerPoints + cardValue( card );
+    htmlPoints[0].innerText = playerPoints;
     
-    // <img class="carta" src="assets/cards/2C.png">
-    const imgCarta = document.createElement('img');
-    imgCarta.src = `assets/cards/${ carta }.png`; //3H, JD
-    imgCarta.classList.add('carta');
-    divCartasJugador.append( imgCarta );
+    // <img class="Card" src="assets/cards/2C.png">
+    const imgCard = document.createElement('img');
+    imgCard.src = `assets/cards/${ card }.png`; //3H, JD
+    imgCard.classList.add('carta');
+    divPlayerCards.append( imgCard );
 
-    if ( puntosJugador > 21 ) {
-        console.warn('Lo siento mucho, perdiste');
-        btnPedir.disabled   = true;
-        btnDetener.disabled = true;
-        turnoComputadora( puntosJugador );
+    if ( playerPoints > 21 ) {
+        console.warn('Im sorry, you Lost! :(');
+        btnGetCard.disabled   = true;
+        btnStop.disabled = true;
+        computerTurn( playerPoints );
 
-    } else if ( puntosJugador === 21 ) {
-        console.warn('21, genial!');
-        btnPedir.disabled   = true;
-        btnDetener.disabled = true;
-        turnoComputadora( puntosJugador );
+    } else if ( playerPoints === 21 ) {
+        console.warn('21, Great!');
+        btnGetCard.disabled   = true;
+        btnStop.disabled = true;
+        computerTurn( playerPoints );
     }
 
 });
 
 
-btnDetener.addEventListener('click', () => {
-    btnPedir.disabled   = true;
-    btnDetener.disabled = true;
+btnStop.addEventListener('click', () => {
+    btnGetCard.disabled   = true;
+    btnStop.disabled = true;
 
-    turnoComputadora( puntosJugador );
+    computerTurn( playerPoints );
 });
 
-btnNuevo.addEventListener('click', () => {
+btnNewGame.addEventListener('click', () => {
 
     console.clear();
     deck = [];
-    deck = crearDeck();
+    deck = createDeck();
 
-    puntosJugador     = 0;
-    puntosComputadora = 0;
+    playerPoints     = 0;
+    computerPoints = 0;
     
-    puntosHTML[0].innerText = 0;
-    puntosHTML[1].innerText = 0;
+    htmlPoints[0].innerText = 0;
+    htmlPoints[1].innerText = 0;
 
-    divCartasComputadora.innerHTML = '';
-    divCartasJugador.innerHTML = '';
+    divComputerCards.innerHTML = '';
+    divPlayerCards.innerHTML = '';
 
-    btnPedir.disabled   = false;
-    btnDetener.disabled = false;
+    btnGetCard.disabled   = false;
+    btnStop.disabled = false;
 
 });
