@@ -20,8 +20,8 @@
         <div id="divButtons" class="col text-center">
 
             <button id="btnNewGame" class="btn btn-danger">New Game</button>
-            <button id="btnGetCard" class="btn btn-primary">Ask Card</button>
-            <button id="btnStop" class="btn btn-primary">Stop</button> 
+            <button id="btnGetCard" disabled="disabled" class="btn btn-primary">Ask Card</button>
+            <button id="btnStop" disabled="disabled" class="btn btn-primary">Stop</button> 
 
         </div>
     </div>
@@ -48,6 +48,11 @@
 
     <script src="assets/js/underscore-min.js"></script>
     <script src="assets/js/game.js"></script>
+
+    <!--Importing the module to someone else-->
+    <script> 
+        console.log(blackjackModule);
+    </script>
 
 </body>
 </html>

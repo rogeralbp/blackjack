@@ -1,11 +1,14 @@
 /**
  * The sintax to declare a module chunk is
- *  (() => {
+ *   const module =  (() => {
  *      .. all the code
+ * 
+ *   return something
+ * 
  *  })();
  * 
  */
-(() => {
+const blackjackModule = (() => {
  
     'use strict' //obliga al interprete de codigo a si o si evaluar y validar siempre antes de retornar contenido en la vista
 
@@ -24,10 +27,20 @@
 
     //This funtion start the game
     const startGame = ( numberPlayers = 2 ) => {
+
        deck =  createDeck();
+
+       playersPoints = [];
+
        for(let i = 0;i < numberPlayers; i++ ){
            playersPoints.push(0);
        }
+
+       htmlPoints.forEach(elem => elem.innerText = 0);
+       divCardsPlayers.forEach(elem => elem.innerHTML = '');
+
+       btnGetCard.disabled   = false;
+       btnStop.disabled = false;
     }
 
     // This function create a new deck
@@ -83,20 +96,9 @@
         divCardsPlayers[turn].append(imgCard);
     }
 
-    // Computer turn
-    const computerTurn = ( minimumPoints ) => {
+    const findWinner = () => {
 
-        let computerPoints = 0;
-
-        do {
-            const card = askCard();
-            computerPoints = acumulatePoints(card, playersPoints.length - 1);
-            createCard(card, playersPoints.length - 1);
-            if( minimumPoints > 21 ) {
-                break;
-            }
-
-        } while(  (computerPoints < minimumPoints)  && (minimumPoints <= 21 ) );
+        const [minimumPoints, computerPoints] = playersPoints;
 
         setTimeout(() => {
             if( computerPoints === minimumPoints ) {
@@ -109,6 +111,22 @@
                 alert('Computer wins!')
             }
         }, 100 );
+
+    }
+
+    // Computer turn
+    const computerTurn = ( minimumPoints ) => {
+
+        let computerPoints = 0;
+
+        do {
+            const card = askCard();
+            computerPoints = acumulatePoints(card, playersPoints.length - 1);
+            createCard(card, playersPoints.length - 1);
+
+        } while(  (computerPoints < minimumPoints)  && (minimumPoints <= 21 ) );
+
+        findWinner();
     }
 
 
@@ -138,30 +156,20 @@
 
 
     btnStop.addEventListener('click', () => {
+
         btnGetCard.disabled   = true;
         btnStop.disabled = true;
-
-        computerTurn( playerPoints );
+        computerTurn( playersPoints[0] );
+        
     });
 
     btnNewGame.addEventListener('click', () => {
-
-        console.clear();
         startGame();
-        
-        //playerPoints     = 0;
-        //computerPoints = 0;
-        
-        // htmlPoints[0].innerText = 0;
-        // htmlPoints[1].innerText = 0;
-
-        // divComputerCards.innerHTML = '';
-        // divPlayerCards.innerHTML = '';
-
-        // btnGetCard.disabled   = false;
-        // btnStop.disabled = false;
-
     });
 
+
+    return {
+        newGame : startGame
+    }
 
 })();
