@@ -10,7 +10,7 @@
  */
 const blackjackModule = (() => {
  
-    'use strict' //obliga al interprete de codigo a si o si evaluar y validar siempre antes de retornar contenido en la vista
+    'use strict' //forces the code interpreter to always evaluate and validate before returning content in the view
 
     let deck                = [];
     const typeCards         = ['C','D','H','S'],
@@ -22,6 +22,7 @@ const blackjackModule = (() => {
     const btnGetCard   = document.querySelector('#btnGetCard'),
           btnStop = document.querySelector('#btnStop'),
           btnNewGame   = document.querySelector('#btnNewGame'),
+          btnRules   = document.querySelector('#btnRules'),
           divCardsPlayers   = document.querySelectorAll('.divCards'),
           htmlPoints = document.querySelectorAll('small');
 
@@ -92,7 +93,7 @@ const blackjackModule = (() => {
 
         const imgCard = document.createElement('img');
         imgCard.src = `assets/cards/${ card }.png`; //3H, JD
-        imgCard.classList.add('carta');
+        imgCard.classList.add('show-card');
         divCardsPlayers[turn].append(imgCard);
     }
 
@@ -161,6 +162,12 @@ const blackjackModule = (() => {
         btnStop.disabled = true;
         computerTurn( playersPoints[0] );
         
+    });
+
+    btnRules.addEventListener('click', () => {
+        alert('- 2 Players exists\n- The first player to get close than 21 points or exactly wins' +
+           ' \n- If a player gets more than 21 points automatically lose' +
+            '\n- If you press stop button you will not receive more Cards and the next card of the computer player will define the winner of the game');
     });
 
     btnNewGame.addEventListener('click', () => {
