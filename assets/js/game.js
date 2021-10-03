@@ -1,5 +1,10 @@
-
-
+/**
+ * The sintax to declare a module chunk is
+ *  (() => {
+ *      .. all the code
+ *  })();
+ * 
+ */
 (() => {
  
     'use strict' //obliga al interprete de codigo a si o si evaluar y validar siempre antes de retornar contenido en la vista
@@ -11,12 +16,13 @@
     let playerPoints = 0,
         computerPoints = 0;
 
+    let playersPoints = [];
+
     //  HTML references
     const btnGetCard   = document.querySelector('#btnGetCard'),
           btnStop = document.querySelector('#btnStop'),
-          btnNewGame   = document.querySelector('#btnNewGame');
-
-    const divPlayerCards     = document.querySelector('#player-cards'),
+          btnNewGame   = document.querySelector('#btnNewGame'),
+          divPlayerCards     = document.querySelector('#player-cards'),
           divComputerCards = document.querySelector('#computer-cards'),
           htmlPoints = document.querySelectorAll('small');
 
@@ -44,7 +50,7 @@
     }
 
     // This function give a card to the players tern validation  = (condicion) ? priemeraopcion : segundaopcion;
-    //const askCard =  ( deck.length === 0 ) ? 'There is not cards on the deck, you should start new game to get a deck of cards' : deck.pop();
+    //const askCard =  () =>{ ( deck.length === 0 ) ? 'There is not cards on the deck, you should start new game to get a deck of cards' : deck.pop(); }
     const askCard = () => {
 
         if ( deck.length === 0 ) {
@@ -70,8 +76,6 @@
 
             computerPoints = computerPoints + cardValue( card );
             htmlPoints[1].innerText = computerPoints;
-            
-            // <img class="Card" src="assets/cards/2C.png">
             const imgCard = document.createElement('img');
             imgCard.src = `assets/cards/${ card }.png`; //3H, JD
             imgCard.classList.add('carta');
@@ -105,8 +109,6 @@
         
         playerPoints = playerPoints + cardValue( card );
         htmlPoints[0].innerText = playerPoints;
-        
-        // <img class="Card" src="assets/cards/2C.png">
         const imgCard = document.createElement('img');
         imgCard.src = `assets/cards/${ card }.png`; //3H, JD
         imgCard.classList.add('carta');
