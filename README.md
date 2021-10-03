@@ -14,3 +14,7 @@ in the same way, the game security when working as a module provides greater sec
 
 ![image](https://user-images.githubusercontent.com/31899798/135773114-65ef917b-fc30-454b-bf67-cf63dd5eebed.png)
 
+## Rules
+
+![image](https://user-images.githubusercontent.com/31899798/135773199-78f20663-667c-4bfe-aad0-846470999743.png)
+
