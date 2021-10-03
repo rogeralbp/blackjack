@@ -1,13 +1,4 @@
-/**
- * The sintax to declare a module chunk is
- *   const module =  (() => {
- *      .. all the code
- * 
- *   return something
- * 
- *  })();
- * 
- */
+
 const blackjackModule = (() => {
  
     'use strict' //forces the code interpreter to always evaluate and validate before returning content in the view
