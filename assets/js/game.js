@@ -13,8 +13,8 @@
     const typeCards         = ['C','D','H','S'],
           specialsTypeCards = ['A','J','Q','K'];
 
-    let playerPoints = 0,
-        computerPoints = 0;
+    //let playerPoints = 0,
+      //  computerPoints = 0;
 
     let playersPoints = [];
 
@@ -27,14 +27,18 @@
           htmlPoints = document.querySelectorAll('small');
 
     //This funtion start the game
-    const startGame = () => {
+    const startGame = ( numberPlayers = 2 ) => {
        deck =  createDeck();
+       for(let i = 0;i < numberPlayers; i++ ){
+           playersPoints.push(0);
+       }
     }
 
     // This function create a new deck
     const createDeck = () => {
 
         deck = [];
+
         for( let i = 2; i <= 10; i++ ) {
             for( let type of typeCards ) {
                 deck.push( i + type);
@@ -46,26 +50,30 @@
                 deck.push( esp + type);
             }
         }
+
         return _.shuffle( deck );
     }
 
-    // This function give a card to the players tern validation  = (condicion) ? priemeraopcion : segundaopcion;
-    //const askCard =  () =>{ ( deck.length === 0 ) ? 'There is not cards on the deck, you should start new game to get a deck of cards' : deck.pop(); }
     const askCard = () => {
 
         if ( deck.length === 0 ) {
             throw 'There is not cards on the deck, you should start new game to get a deck of cards';
         }
+
         return deck.pop();
     }
 
     // This function determine the value of the cards for the game and the respective current rules
     const cardValue = ( card ) => {
-
         const value = card.substring(0, card.length - 1);
         return ( isNaN( value ) ) ? 
                 ( value === 'A' ) ? 11 : 10
                 : value * 1;
+    }
+
+    const acumulatePoints = () => {
+
+
     }
 
     // Computer turn
