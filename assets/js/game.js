@@ -22,8 +22,7 @@
     const btnGetCard   = document.querySelector('#btnGetCard'),
           btnStop = document.querySelector('#btnStop'),
           btnNewGame   = document.querySelector('#btnNewGame'),
-          divPlayerCards     = document.querySelector('#player-cards'),
-          divComputerCards = document.querySelector('#computer-cards'),
+          divCardsPlayers   = document.querySelectorAll('.divCards'),
           htmlPoints = document.querySelectorAll('small');
 
     //This funtion start the game
@@ -152,14 +151,14 @@
         //playerPoints     = 0;
         //computerPoints = 0;
         
-        htmlPoints[0].innerText = 0;
-        htmlPoints[1].innerText = 0;
+        // htmlPoints[0].innerText = 0;
+        // htmlPoints[1].innerText = 0;
 
-        divComputerCards.innerHTML = '';
-        divPlayerCards.innerHTML = '';
+        // divComputerCards.innerHTML = '';
+        // divPlayerCards.innerHTML = '';
 
-        btnGetCard.disabled   = false;
-        btnStop.disabled = false;
+        // btnGetCard.disabled   = false;
+        // btnStop.disabled = false;
 
     });
 
