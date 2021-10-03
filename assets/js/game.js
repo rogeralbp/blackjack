@@ -125,10 +125,8 @@
 
         const card = askCard();
         const playerPoints = acumulatePoints(card, 0);
-        const imgCard = document.createElement('img');
-        imgCard.src = `assets/cards/${ card }.png`; //3H, JD
-        imgCard.classList.add('carta');
-        divPlayerCards.append( imgCard );
+        
+        createCard(card, 0);
 
         if ( playerPoints > 21 ) {
             console.warn('Im sorry, you Lost! :(');
