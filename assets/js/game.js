@@ -71,8 +71,11 @@
                 : value * 1;
     }
 
-    const acumulatePoints = () => {
+    const acumulatePoints = ( card, turn ) => {
 
+        playersPoints[turn] = playersPoints[turn] + cardValue( card );
+        htmlPoints[turn].innerText = playersPoints[turn];
+        return playersPoints[turn];
 
     }
 
@@ -81,9 +84,7 @@
 
         do {
             const card = askCard();
-
-            computerPoints = computerPoints + cardValue( card );
-            htmlPoints[1].innerText = computerPoints;
+            acumulatePoints(card, playersPoints.length - 1);
             const imgCard = document.createElement('img');
             imgCard.src = `assets/cards/${ card }.png`; //3H, JD
             imgCard.classList.add('carta');
@@ -114,9 +115,7 @@
     btnGetCard.addEventListener('click', () => {
 
         const card = askCard();
-        
-        playerPoints = playerPoints + cardValue( card );
-        htmlPoints[0].innerText = playerPoints;
+        const playerPoints = acumulatePoints(card, 0);
         const imgCard = document.createElement('img');
         imgCard.src = `assets/cards/${ card }.png`; //3H, JD
         imgCard.classList.add('carta');
@@ -150,8 +149,8 @@
         console.clear();
         startGame();
         
-        playerPoints     = 0;
-        computerPoints = 0;
+        //playerPoints     = 0;
+        //computerPoints = 0;
         
         htmlPoints[0].innerText = 0;
         htmlPoints[1].innerText = 0;
