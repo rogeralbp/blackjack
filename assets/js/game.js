@@ -13,9 +13,6 @@
     const typeCards         = ['C','D','H','S'],
           specialsTypeCards = ['A','J','Q','K'];
 
-    //let playerPoints = 0,
-      //  computerPoints = 0;
-
     let playersPoints = [];
 
     //  HTML references
@@ -84,21 +81,17 @@
         imgCard.src = `assets/cards/${ card }.png`; //3H, JD
         imgCard.classList.add('carta');
         divCardsPlayers[turn].append(imgCard);
-       // divComputerCards.append( imgCard );
     }
 
     // Computer turn
     const computerTurn = ( minimumPoints ) => {
 
+        let computerPoints = 0;
+
         do {
             const card = askCard();
-            acumulatePoints(card, playersPoints.length - 1);
+            computerPoints = acumulatePoints(card, playersPoints.length - 1);
             createCard(card, playersPoints.length - 1);
-            // const imgCard = document.createElement('img');
-            // imgCard.src = `assets/cards/${ card }.png`; //3H, JD
-            // imgCard.classList.add('carta');
-            // divComputerCards.append( imgCard );
-
             if( minimumPoints > 21 ) {
                 break;
             }
