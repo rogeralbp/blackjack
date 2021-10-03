@@ -78,16 +78,26 @@
 
     }
 
+    const createCard = (card , turn) => {
+
+        const imgCard = document.createElement('img');
+        imgCard.src = `assets/cards/${ card }.png`; //3H, JD
+        imgCard.classList.add('carta');
+        divCardsPlayers[turn].append(imgCard);
+       // divComputerCards.append( imgCard );
+    }
+
     // Computer turn
     const computerTurn = ( minimumPoints ) => {
 
         do {
             const card = askCard();
             acumulatePoints(card, playersPoints.length - 1);
-            const imgCard = document.createElement('img');
-            imgCard.src = `assets/cards/${ card }.png`; //3H, JD
-            imgCard.classList.add('carta');
-            divComputerCards.append( imgCard );
+            createCard(card, playersPoints.length - 1);
+            // const imgCard = document.createElement('img');
+            // imgCard.src = `assets/cards/${ card }.png`; //3H, JD
+            // imgCard.classList.add('carta');
+            // divComputerCards.append( imgCard );
 
             if( minimumPoints > 21 ) {
                 break;
